@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FreteComponent implements OnInit {
 
+  displayedCollumns: string[] = ['freteId'];
+
   constructor() { }
 
   ngOnInit() {
