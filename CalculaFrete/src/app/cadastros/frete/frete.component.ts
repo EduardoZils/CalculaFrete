@@ -14,13 +14,16 @@ export class FreteComponent implements OnInit {
 
   public estadoSelId: number;
   public estadoSel: Estado = new Estado;
+  public cidadeSelId: number;
+  public cidadeSel: Cidade = new Cidade;
   
   public estados:  any;
-  public dataSourceEstado: any;
+  public cidades:  any;
+  public dataSource: any;
   constructor() { }
 
   ngOnInit() {
-    this.dataSourceEstado = new Array<Estado>();
+    this.cidades = new Array<Cidade>();
     this.estados = new Array<Estado>();
 
 
@@ -71,17 +74,31 @@ export class FreteComponent implements OnInit {
     }
   
 
-  atualizarEstadoListBox(){
-    console.log("Chamou atualizarEstadoListBox codigo -------> " + this.estadoSelId);
-    let id = this.estadoSelId;
-    let estadoSelLocal;
-    this.estados.forEach(item => {
-      if(item.estadoId == id){
-        estadoSelLocal = item;
-        alert("Propriedade da pessoa selecionada "+ item.cidades)
-      }
-    });
-    this.estadoSel = estadoSelLocal;
-  }
+    atualizarEstadoListBox(){
+      this.dataSource = new Array<Estado>();
+      console.log("Chamou atualizarEstadoListBox codigo -------> " + this.estadoSelId);
+      let id = this.estadoSelId;
+      let estadoSelLocal;
+      this.estados.forEach(item => {
+        if(item.estadoId == id){
+          estadoSelLocal = item;
+          alert("Propriedade da pessoa selecionada "+ item.cidades)
+        }
+      });
+      this.estadoSel = estadoSelLocal;
+    }
+    
+    atualizarCidadeListBox(){
+      console.log("Chamou atualizarEstadoListBox codigo -------> " + this.cidadeSelId);
+      let id = this.cidadeSelId;
+      let cidadeSelLocal;
+      this.estados.forEach(item => {
+        if(item.cidadeId == id){
+          cidadeSelLocal = item;
+          alert("Propriedade da pessoa selecionada "+ item.cidades)
+        }
+      });
+      this.cidadeSel = cidadeSelLocal;
+    }
 
 }
