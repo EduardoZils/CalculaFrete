@@ -6,14 +6,11 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './cadastros/erros/page-not-found/page-not-found.component';
 import { FreteComponent } from './cadastros/frete/frete.component';
 
-import { MatInputModule, MatRadioModule, MatButtonModule, 
-  MatTableModule, 
-  MatPaginatorModule,
-  MatSortModule} from '@angular/material';
-
-import { MatIconModule } from '@angular/material/icon';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatInputModule, MatRadioModule, MatButtonModule, 
+  MatTableModule, MatIconModule, MatPaginatorModule, MatSortModule, MatExpansionModule, MatSelectModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -33,6 +30,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     MatPaginatorModule,
     MatSortModule,
+    MatExpansionModule,
+    MatSelectModule,
     BrowserAnimationsModule
   ],
   providers: [],
