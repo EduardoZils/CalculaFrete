@@ -44,13 +44,13 @@
     <div class="row">
       <div class="col s12 m2 l2">
         <mat-form-field>
-          <input matInput type="number" placeholder="Código" />
+          <input matInput type="number" placeholder="Código"  [(ngModel)] = "cidadeModel.codigo" />
         </mat-form-field>
       </div>
       <div class="row">
         <div class="col s12 m2 l2">
           <mat-form-field>
-            <input matInput type="text" placeholder="Descrição" />
+            <input matInput type="text" placeholder="Descrição" [(ngModel)] = "cidadeModel.descricao" />
           </mat-form-field>
         </div>
       </div>
@@ -58,7 +58,7 @@
         <mat-form-field>
           <mat-label>Estado</mat-label>
           <mat-select>
-            <mat-option *ngFor="let estado of estados" [value]="estado.descricao">
+            <mat-option *ngFor="let estado of estados" [value]="estado.descricao" [(ngModel)] = "estadoModel.descricao">
               {{estado.descricao + estado.uf}}
             </mat-option>
           </mat-select>
@@ -67,7 +67,7 @@
       <div class="row footer-btn">
         <div class="button-row col s12">
           <button mat-raised-button (click)="voltar()">Voltar</button>
-          <button mat-raised-button color="green" (click)="salvarPessoa()">Salvar</button>
+          <button mat-raised-button color="green" (click)="salvarCidade()">Salvar Cidade</button>
           <!--<button *ngIf="edicao" mat-raised-button color="green" (click)="atualizar()">Atualizar</button>-->
         </div>
       </div>
