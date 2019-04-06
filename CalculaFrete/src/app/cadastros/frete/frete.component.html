@@ -46,13 +46,13 @@
     <div class="row">
       <div class="col s12 m2 l2">
         <mat-form-field>
-          <input matInput type="number" placeholder="Código" />
+          <input matInput type="number" placeholder="Código"  [(ngModel)] = "cidadeModel.codigo" />
         </mat-form-field>
       </div>
       <div class="row">
         <div class="col s12 m2 l2">
           <mat-form-field>
-            <input matInput type="text" placeholder="Descrição" />
+            <input matInput type="text" placeholder="Descrição" [(ngModel)] = "cidadeModel.descricao" />
           </mat-form-field>
         </div>
       </div>
@@ -60,8 +60,13 @@
         <mat-form-field>
           <mat-label>Estado</mat-label>
           <mat-select>
+<<<<<<< HEAD
             <mat-option *ngFor="let estado of estados" [value]="estado.descricao">
               {{estado.descricao + " - " + estado.uf}}
+=======
+            <mat-option *ngFor="let estado of estados" [value]="estado.descricao" [(ngModel)] = "estadoModel.descricao">
+              {{estado.descricao + estado.uf}}
+>>>>>>> 4239bbc1529409e958c3f0f1e81107736597d5dc
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -69,7 +74,12 @@
       <div class="row footer-btn">
         <div class="button-row col s12">
           <button mat-raised-button (click)="voltar()">Voltar</button>
+<<<<<<< HEAD
           <button mat-raised-button color="green" (click)="salvarCidade()">Salvar</button>
+=======
+          <button mat-raised-button color="green" (click)="salvarCidade()">Salvar Cidade</button>
+          <!--<button *ngIf="edicao" mat-raised-button color="green" (click)="atualizar()">Atualizar</button>-->
+>>>>>>> 4239bbc1529409e958c3f0f1e81107736597d5dc
         </div>
       </div>
     </div>

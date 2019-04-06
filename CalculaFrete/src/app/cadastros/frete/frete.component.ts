@@ -14,13 +14,19 @@ export class FreteComponent implements OnInit {
 
   public estadoSelId: number;
   public estadoSel: Estado = new Estado;
+  public cidadeSelId: number;
+  public cidadeSel: Cidade = new Cidade;
+  public cidadeModel: Cidade = new Cidade();
+  public estadoModel: Estado = new Estado();
   
   public estados:  any;
-  public dataSourceEstado: any;
+  public cidades:  any;
+  public ceps:  any;
+  public dataSource: any;
   constructor() { }
 
   ngOnInit() {
-    this.dataSourceEstado = new Array<Estado>();
+    this.cidades = new Array<Cidade>();
     this.estados = new Array<Estado>();
 
 
@@ -71,17 +77,49 @@ export class FreteComponent implements OnInit {
     }
   
 
-  atualizarEstadoListBox(){
-    console.log("Chamou atualizarEstadoListBox codigo -------> " + this.estadoSelId);
-    let id = this.estadoSelId;
-    let estadoSelLocal;
-    this.estados.forEach(item => {
-      if(item.estadoId == id){
-        estadoSelLocal = item;
-        alert("Propriedade da pessoa selecionada "+ item.cidades)
-      }
-    });
-    this.estadoSel = estadoSelLocal;
-  }
+    atualizarEstadoListBox(){
+      this.dataSource = new Array<Estado>();
+      console.log("Chamou atualizarEstadoListBox codigo -------> " + this.estadoSelId);
+      let id = this.estadoSelId;
+      let estadoSelLocal;
+      this.estados.forEach(item => {
+        if(item.estadoId == id){
+          estadoSelLocal = item;
+          alert("Propriedade da pessoa selecionada "+ item.cidades)
+        }
+      });
+      this.estadoSel = estadoSelLocal;
+    }
+    
+    atualizarCidadeListBox(){
+      console.log("Chamou atualizarEstadoListBox codigo -------> " + this.cidadeSelId);
+      let id = this.cidadeSelId;
+      let cidadeSelLocal;
+      this.estados.forEach(item => {
+        if(item.cidadeId == id){
+          cidadeSelLocal = item;
+          alert("Propriedade da pessoa selecionada "+ item.cidades)
+        }
+      });
+      this.cidadeSel = cidadeSelLocal;
+    }
+    setExpandido(){
 
+    }
+
+    salvarCidade(){
+      this.cidades.push(this.cidadeModel);
+    }
+
+    salvarCEP(){
+      let cep = new Cep();
+      let id = this.cidadeSelId
+      let cepsCidade = this.cidadeSel.cepList;
+      console.log("Cep Salvo -->" + cep);
+      this.cidades.forEach(item => {
+        if(item.cidadeID == id){
+          item.cepList.push(cepsCidade);
+        }
+      });
+    }
 }
