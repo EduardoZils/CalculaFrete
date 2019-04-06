@@ -44,34 +44,40 @@
     <div class="row">
       <div class="col s12 m2 l2">
         <mat-form-field>
-          <input matInput type="number" placeholder="Código"  [(ngModel)] = "cidadeModel.codigo" />
+          <input matInput type="number" placeholder="Código"  name="codigo" [(ngModel)]="cidadeModel.codigo" />
         </mat-form-field>
       </div>
-      <div class="row">
-        <div class="col s12 m2 l2">
-          <mat-form-field>
-            <input matInput type="text" placeholder="Descrição" [(ngModel)] = "cidadeModel.descricao" />
-          </mat-form-field>
-        </div>
-      </div>
-      <div>
+    </div>
+
+
+    <div class="row">
+      <div class="col s12 m2 l2">
         <mat-form-field>
-          <mat-label>Estado</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let estado of estados" [value]="estado.descricao" [(ngModel)] = "estadoModel.descricao">
+          <input matInput type="text" placeholder="Descrição" name="descricao" [(ngModel)]="cidadeModel.descricao" />
+        </mat-form-field>
+      </div>
+
+      <div class="col s12 m2 l2">      
+        <mat-form-field > 
+        <mat-label>Estado</mat-label>
+          <mat-select name="estado" [(ngModel)]="estadoSelId" (selectionChange) = "atualizaEstadoListBox()" >
+            <mat-option *ngFor="let estado of estados" [value]="estado.codigo" >
               {{estado.descricao + estado.uf}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="row footer-btn">
-        <div class="button-row col s12">
-          <button mat-raised-button (click)="voltar()">Voltar</button>
-          <button mat-raised-button color="green" (click)="salvarCidade()">Salvar Cidade</button>
-          <!--<button *ngIf="edicao" mat-raised-button color="green" (click)="atualizar()">Atualizar</button>-->
-        </div>
+    </div>
+      
+    
+    <div class="row footer-btn">
+      <div class="button-row col s12">
+        <button mat-raised-button (click)="voltar()">Voltar</button>
+        <button mat-raised-button color="green" (click)="salvarCidade()">Salvar Cidade</button>
+        <!--<button *ngIf="edicao" mat-raised-button color="green" (click)="atualizar()">Atualizar</button>-->
       </div>
     </div>
+  
   </mat-expansion-panel>
   
   <mat-expansion-panel name="panelCadastroEstado" [expanded]="isExpandido === 1" (opened)="setExpandido()">
