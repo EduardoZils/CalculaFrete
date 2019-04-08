@@ -109,6 +109,8 @@ export class FreteComponent implements OnInit {
 
     salvarCidade(){
       this.cidades.push(this.cidadeModel);
+      console.log("Cidade salva");
+      console.log(this.cidades);
     }
 
     salvarCEP(){
