@@ -9,6 +9,9 @@ import { FreteComponent } from './cadastros/frete/frete.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { FormsModule } from '@angular/forms';
+
+
 import { MatInputModule, MatRadioModule, MatButtonModule, 
   MatTableModule, MatIconModule, MatPaginatorModule, MatSortModule, MatExpansionModule, MatSelectModule } from '@angular/material';
 
@@ -19,6 +22,8 @@ import { MatInputModule, MatRadioModule, MatButtonModule,
     FreteComponent
   ],
   imports: [
+    FormsModule,
+
     BrowserModule,
     AppRoutingModule,
 
@@ -34,7 +39,7 @@ import { MatInputModule, MatRadioModule, MatButtonModule,
     MatSelectModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
