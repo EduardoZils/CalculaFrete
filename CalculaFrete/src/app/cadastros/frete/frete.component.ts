@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Estado} from '../models/estado'
 import { Cidade } from '../models/cidade';
 import { Cep } from '../models/cep';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-frete',
@@ -10,8 +11,10 @@ import { Cep } from '../models/cep';
 })
 export class FreteComponent implements OnInit {
 
-  displayedCollumns: string[] = ['freteId'];
+  displayedCollumns: string[] = ['codigo', 'uf', 'descricao' ];
+ 
 
+  public estado: Estado = new Estado();
   public estadoSelId: number;
   public estadoSel: Estado = new Estado;
   public cidadeSelId: number;
@@ -23,6 +26,9 @@ export class FreteComponent implements OnInit {
   public cidades:  any;
   public ceps:  any;
   public dataSource: any;
+
+  @ViewChild(MatPaginator) paginatorCustom: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   constructor() { }
 
   ngOnInit() {
@@ -105,6 +111,17 @@ export class FreteComponent implements OnInit {
     }
     setExpandido(){
 
+    }
+
+    salvarEstado(){
+      console.log("Estado Salvo");
+      console.log(this.estado)
+      this.estados.push(this.estado);
+      console.log("Lista de Estados");
+      console.log(this.estados);
+      this.estado = new Estado();
+      this.dataSource = new MatTableDataSource<Estado>(this.estados);
+      this.dataSource.paginator = this.paginatorCustom; 
     }
 
     salvarCidade(){
