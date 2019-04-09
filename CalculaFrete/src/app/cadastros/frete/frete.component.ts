@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Estado} from '../models/estado'
 import { Cidade } from '../models/cidade';
 import { Cep } from '../models/cep';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatTable } from '@angular/material';
 
 @Component({
   selector: 'app-frete',
@@ -11,10 +11,8 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 })
 export class FreteComponent implements OnInit {
 
-  displayedCollumns: string[] = ['codigo', 'uf', 'descricao' ];
- 
-
-  public estado: Estado = new Estado();
+  public estado: Estado;
+  public isExpandido: number;
   public estadoSelId: number;
   public estadoSel: Estado = new Estado;
   public cidadeSelId: number;
@@ -27,6 +25,9 @@ export class FreteComponent implements OnInit {
   public ceps:  any;
   public dataSource: any;
 
+  
+  displayedCollumns: string[] = ['codigo', 'uf', 'descricao' ];
+
   @ViewChild(MatPaginator) paginatorCustom: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor() { }
@@ -34,9 +35,15 @@ export class FreteComponent implements OnInit {
   ngOnInit() {
     this.cidades = new Array<Cidade>();
     this.estados = new Array<Estado>();
-
+    this.estado = new Estado;
+    this.estados = new Array<Estado>();
+    this.isExpandido = 0;
 
     this.criaDados();
+  }
+
+  setExpandido() {
+    this.isExpandido = 1;
   }
 
   criaDados(){
@@ -109,9 +116,7 @@ export class FreteComponent implements OnInit {
       });
       this.cidadeSel = cidadeSelLocal;
     }
-    setExpandido(){
-
-    }
+   
 
     salvarEstado(){
       console.log("Estado Salvo");
@@ -121,7 +126,14 @@ export class FreteComponent implements OnInit {
       console.log(this.estados);
       this.estado = new Estado();
       this.dataSource = new MatTableDataSource<Estado>(this.estados);
+
       this.dataSource.paginator = this.paginatorCustom; 
+      console.log("DATA SOURCE" + this.dataSource)
+      console.log(this.estados);
+    }
+
+    sortData(){
+      this.dataSource.sort = this.sort;
     }
 
     salvarCidade(){
