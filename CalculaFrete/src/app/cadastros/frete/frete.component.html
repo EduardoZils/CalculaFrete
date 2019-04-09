@@ -3,17 +3,19 @@
     Calcula Frete
   </h3>
 </div>
-
-
+<div class="row">
+  <!--PARA TER UM ESPAÇO ENTRE OS EXPANSION-PANEL-->
+  <div class="col s12 m12 l12"></div>
+</div>
 <div class="row">
   <div class="col s12">
     <mat-accordion>
       <mat-expansion-panel name="panelCadastroEstado" [expanded]="isExpandido === 1" (opened)="setExpandido()">
+        <!--ESTADO-->
         <mat-expansion-panel-header>
           <mat-panel-title>Cadastro de Estado</mat-panel-title>
           <mat-panel-description>Estado</mat-panel-description>
         </mat-expansion-panel-header>
-
         <div class="row">
           <div class="col s12 m2 l2">
             <mat-form-field>
@@ -23,69 +25,64 @@
           <div class="row">
             <div class="col s12 m2 l2">
               <mat-form-field>
-                <input matInput type="text" placeholder="UF" [(ngModel)]="estado.uf" />
+                <input matInput type="text" placeholder="UF" [(ngModel)]="estado.uf" required/>
               </mat-form-field>
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="col s12 m2 l2">
             <mat-form-field>
-              <input matInput type="text" placeholder="Descrição" [(ngModel)]="estado.descricao" />
+              <input matInput type="text" placeholder="Descrição" [(ngModel)]="estado.descricao" required/>
             </mat-form-field>
           </div>
         </div>
-
-
-
         <div class="row footer-btn">
+          <!--BOTÃO SALVAR ESTADO-->
           <div class="button-row col s12">
             <button mat-raised-button (click)="voltar()">Voltar</button>
             <button mat-raised-button color="green" (click)="salvarEstado()">Salvar</button>
-            <!--<button *ngIf="edicao" mat-raised-button color="green" (click)="atualizar()">Atualizar</button>-->
           </div>
         </div>
         <div class="row">
+          <!--TABLE ESTADO-->
           <div class="col s12 m12 l12">
             <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
-              <!--- Note that these columns can be defined in any order.
-                    The actual rendered columns are set as a property on the row definition" -->
-      
-              <!-- ID -->
               <ng-container matColumnDef="codigo">
+                <!--CÓDIGO-->
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>>
                 <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
               </ng-container>
-      
-              <!-- Sigla -->
               <ng-container matColumnDef="uf">
+                <!--UF-->
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Uf </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.uf}} </mat-cell>
               </ng-container>
-      
-              <!-- Nome -->
               <ng-container matColumnDef="descricao">
+                <!--DESCRIÇÃO-->
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
               </ng-container>
-      
-              <mat-header-row *matHeaderRowDef="displayedCollumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedCollumns;"></mat-row>
+              <mat-header-row *matHeaderRowDef="displayColumnsEstado"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayColumnsEstado;"></mat-row>
             </mat-table>
             <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButton></mat-paginator>
           </div>
         </div>
       </mat-expansion-panel>
-      <div>
-        
-      </div>
-
     </mat-accordion>
+  </div>
+</div>
 
-    <!------------------------------------------------------------------------>
+<div class="row">
+  <!--PARA TER UM ESPAÇO ENTRE OS EXPANSION-PANEL-->
+  <div class="col s12 m12 l12"></div>
+</div>
 
+<div class="row">
+  <div class="col s12">
     <mat-expansion-panel name="panelCadastroCidade" [expanded]="isExpandido === 1" (opened)="setExpandido()">
+      <!--CIDADE-->
       <mat-expansion-panel-header>
         <mat-panel-title>Cadastro de Cidade</mat-panel-title>
         <mat-panel-description>Cidade</mat-panel-description>
@@ -97,8 +94,6 @@
           </mat-form-field>
         </div>
       </div>
-
-
       <div class="row">
         <div class="col s12 m2 l2">
           <mat-form-field>
@@ -118,16 +113,49 @@
         </div>
       </div>
 
-
+      <!--BOTÃO CIDADE-->
       <div class="row footer-btn">
         <div class="button-row col s12">
           <button mat-raised-button (click)="voltar()">Voltar</button>
           <button mat-raised-button color="green" (click)="salvarCidade()">Salvar Cidade</button>
-          <!--<button *ngIf="edicao" mat-raised-button color="green" (click)="atualizar()">Atualizar</button>-->
         </div>
       </div>
 
+      <div class="row">
+        <!--TABLE ESTADO-->
+        <div class="col s12 m12 l12">
+          <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+            <ng-container matColumnDef="codigo">
+              <!--CÓDIGO-->
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>>
+              <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="uf">
+              <!--UF-->
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Uf </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.uf}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="descricao">
+              <!--DESCRIÇÃO-->
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedCollumnsCidade"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedCollumnsCidade;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButton></mat-paginator>
+        </div>
+      </div>
     </mat-expansion-panel>
+  </div>
+</div>
+
+<div class="row">
+  <!--PARA TER UM ESPAÇO ENTRE OS EXPANSION-PANEL-->
+  <div class="col s12 m12 l12"></div>
+</div>
+<div class="row">
+  <div class="col s12">
     <mat-accordion>
       <mat-expansion-panel name="panelCadastroCep" [expanded]="isExpandido === 1" (opened)="setExpandido()">
         <mat-expansion-panel-header>

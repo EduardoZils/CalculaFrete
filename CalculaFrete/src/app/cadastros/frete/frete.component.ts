@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Estado} from '../models/estado'
 import { Cidade } from '../models/cidade';
 import { Cep } from '../models/cep';
-import { MatPaginator, MatSort, MatTableDataSource, MatTable } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-frete',
@@ -26,7 +26,9 @@ export class FreteComponent implements OnInit {
   public dataSource: any;
 
   
-  displayedCollumns: string[] = ['codigo', 'uf', 'descricao' ];
+  displayColumnsEstado: string[] = ['codigo', 'uf', 'descricao' ];
+  displayColumnsCidade: string[] = ['codigo', 'descricao'];
+ 
 
   @ViewChild(MatPaginator) paginatorCustom: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
