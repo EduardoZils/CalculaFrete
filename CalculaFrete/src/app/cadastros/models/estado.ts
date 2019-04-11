@@ -5,5 +5,5 @@ export class Estado {
     public codigo: number;
     public uf: string;
     public descricao: string;
-    public cidadeList: Array<Cidade>;
+    public cidadeList: Array<Cidade> = new Array<Cidade>();
 }
