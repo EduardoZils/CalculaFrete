@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Estado} from '../models/estado'
 import { Cidade } from '../models/cidade';
 import { Cep } from '../models/cep';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-frete',
@@ -10,8 +11,8 @@ import { Cep } from '../models/cep';
 })
 export class FreteComponent implements OnInit {
 
-  displayedCollumns: string[] = ['freteId'];
-
+  public estado: Estado;
+  public isExpandido: number;
   public estadoSelId: number;
   public estadoSel: Estado = new Estado;
   public cidadeSelId: number;
@@ -23,14 +24,28 @@ export class FreteComponent implements OnInit {
   public cidades:  any;
   public ceps:  any;
   public dataSource: any;
+
+  
+  displayColumnsEstado: string[] = ['codigo', 'uf', 'descricao' ];
+  displayColumnsCidade: string[] = ['codigo', 'descricao'];
+ 
+
+  @ViewChild(MatPaginator) paginatorCustom: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   constructor() { }
 
   ngOnInit() {
     this.cidades = new Array<Cidade>();
     this.estados = new Array<Estado>();
-
+    this.estado = new Estado;
+    this.estados = new Array<Estado>();
+    this.isExpandido = 0;
 
     this.criaDados();
+  }
+
+  setExpandido() {
+    this.isExpandido = 1;
   }
 
   criaDados(){
@@ -103,8 +118,24 @@ export class FreteComponent implements OnInit {
       });
       this.cidadeSel = cidadeSelLocal;
     }
-    setExpandido(){
+   
 
+    salvarEstado(){
+      console.log("Estado Salvo");
+      console.log(this.estado)
+      this.estados.push(this.estado);
+      console.log("Lista de Estados");
+      console.log(this.estados);
+      this.estado = new Estado();
+      this.dataSource = new MatTableDataSource<Estado>(this.estados);
+
+      this.dataSource.paginator = this.paginatorCustom; 
+      console.log("DATA SOURCE" + this.dataSource)
+      console.log(this.estados);
+    }
+
+    sortData(){
+      this.dataSource.sort = this.sort;
     }
 
     salvarCidade(){
