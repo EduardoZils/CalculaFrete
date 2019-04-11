@@ -30,7 +30,7 @@ export class FreteComponent implements OnInit {
   public dataSourceCep: any;
 
 
-  displayColumnsEstado: string[] = ['actionsColumn', 'estadoId', 'uf', 'descricao'];
+  displayColumnsEstado: string[] = ['actionsColumn', 'estadoId', 'uf', 'descricao', 'valorFrete'];
   displayColumnsCidade: string[] = ['actionsColumn', 'cidadeId', 'descricao', 'estado'];
   displayColumnsCep: string[] = ['actionsColumn','cepId', 'descricao', 'cidade'];
 

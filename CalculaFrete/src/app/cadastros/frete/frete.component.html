@@ -100,6 +100,11 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
               </ng-container>
+              <ng-container matColumnDef="valorFrete">
+                <!--DESCRIÇÃO-->
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Valor Frete </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.valorFrete}} </mat-cell>
+              </ng-container>
               <mat-header-row *matHeaderRowDef="displayColumnsEstado"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayColumnsEstado;"></mat-row>
             </mat-table>
