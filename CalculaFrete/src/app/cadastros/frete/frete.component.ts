@@ -77,18 +77,19 @@ export class FreteComponent implements OnInit {
     }
   
 
-    atualizarEstadoListBox(){
-      this.dataSource = new Array<Estado>();
+    atualizaEstadoListBox(){
       console.log("Chamou atualizarEstadoListBox codigo -------> " + this.estadoSelId);
       let id = this.estadoSelId;
       let estadoSelLocal;
-      this.estados.forEach(item => {
-        if(item.estadoId == id){
+      alert("id " + id);
+      this.estados.forEach(function (item) {
+        if(item.codigo == id){
           estadoSelLocal = item;
           alert("Propriedade da pessoa selecionada "+ item.cidades)
         }
       });
       this.estadoSel = estadoSelLocal;
+      
     }
     
     atualizarCidadeListBox(){
@@ -108,9 +109,13 @@ export class FreteComponent implements OnInit {
     }
 
     salvarCidade(){
-      this.cidades.push(this.cidadeModel);
+      if(this.estadoSel.cidadeList == undefined)
+        this.estadoSel.cidadeList = new Array<Cidade>();
+      this.estadoSel.cidadeList.push(this.cidadeModel);
+      //this.cidades.push(this.cidadeModel);
       console.log("Cidade salva");
-      console.log(this.cidades);
+      console.log(this.estadoSel);
+      this.cidadeModel = new Cidade();
     }
 
     salvarCEP(){
