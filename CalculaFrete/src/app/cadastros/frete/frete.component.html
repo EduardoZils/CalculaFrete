@@ -47,11 +47,29 @@
             <button mat-raised-button color="green" (click)="salvarEstado()">Salvar</button>
           </div>
         </div>
+
+        <!--Aplicar Filtros-->
+        <div class="row heading">
+          <div class="col s12">
+            <h2 class="title">Lista de Estados</h2>
+            <div class="heading__tools">
+              <div class="search">
+                <mat-form-field>
+                  <mat-icon svgIcon="slidenav-search"></mat-icon>
+                  <input matInput id="pesquisarId" name="pesquisar" placeholder="Pesquisar"
+                    (keyup)="aplicarFiltroEstado($event.target.value)">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <div class="row">
           <!--TABLE ESTADO-->
           <div class="col s12 m12 l12">
             <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
-             
+
               <ng-container matColumnDef="actionsColumn">
                 <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
                 <mat-cell *matCellDef="let element">

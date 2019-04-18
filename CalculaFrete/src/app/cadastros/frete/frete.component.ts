@@ -90,7 +90,7 @@ export class FreteComponent implements OnInit {
     estado = new Estado();
     estado.codigo = 2;
     estado.descricao = "Rio Grande do Sul";
-    estado.uf = "RG";
+    estado.uf = "RS";
     estado.cidadeList = cidades;
     this.estados.push(estado);
   }
@@ -162,5 +162,25 @@ export class FreteComponent implements OnInit {
 
   voltar(){
 
+  }
+
+  editar(){
+
+  }
+
+  excluir(){
+
+  }
+
+  aplicarFiltroEstado(valor: String){
+    valor = valor.trim(); // Remove whitespace
+    valor = valor.toLowerCase();
+
+    console.log("realiza o filtro com " + valor);
+    this.dataSource.filterPredicate = (data: Estado, filter: string) =>
+      data.codigo.toString().indexOf(filter) != -1 ||
+      data.uf.toLowerCase().indexOf(filter) != -1 ||
+      data.descricao.toString().indexOf(filter) != -1;
+    this.dataSource.filter = valor;
   }
 }
