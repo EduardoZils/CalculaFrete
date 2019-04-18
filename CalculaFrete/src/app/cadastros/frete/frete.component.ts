@@ -27,7 +27,7 @@ export class FreteComponent implements OnInit {
 
 
   displayColumnsEstado: string[] = ['actionsColumn', 'codigo', 'uf', 'descricao'];
-  displayColumnsCidade: string[] = ['codigo', 'descricao'];
+  displayColumnsCidade: string[] = ['actionsColumn','codigo', 'descricao'];
 
 
   @ViewChild(MatPaginator) paginatorCustom: MatPaginator;
@@ -161,6 +161,6 @@ export class FreteComponent implements OnInit {
   }
 
   voltar(){
-    
+
   }
 }

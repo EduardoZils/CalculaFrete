@@ -51,6 +51,7 @@
           <!--TABLE ESTADO-->
           <div class="col s12 m12 l12">
             <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+             
               <ng-container matColumnDef="actionsColumn">
                 <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
                 <mat-cell *matCellDef="let element">
