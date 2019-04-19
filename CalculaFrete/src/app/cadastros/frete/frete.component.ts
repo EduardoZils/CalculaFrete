@@ -25,7 +25,6 @@ export class FreteComponent implements OnInit {
   public estados: Array<Estado>;
   public cidades: Array<Cidade>;
   public ceps: Array<Cep>;
-  //public cepsCidade: Array<Cep>;
   public dataSourceEstado: any;
   public dataSourceCidade: any;
   public dataSourceCep: any;
@@ -46,7 +45,7 @@ export class FreteComponent implements OnInit {
     this.estado = new Estado;
     this.estados = new Array<Estado>();
     this.ceps = new Array<Cep>();
-    this.isExpandido = 0;
+    //this.isExpandido = 0;
 
     this.criaDados();
     this.atualizaTableEstado();
@@ -56,9 +55,9 @@ export class FreteComponent implements OnInit {
 
   }
 
-  setExpandido() {
+ /* setExpandido() {
     this.isExpandido = 1;
-  }
+  }*/
 
   
   sortData() {
@@ -70,10 +69,7 @@ export class FreteComponent implements OnInit {
   criaDados() {
     let estado;
     let cidade;
-
     let cep;
-
-
 
     estado = new Estado();
     estado.estadoId = 1;
@@ -110,19 +106,6 @@ export class FreteComponent implements OnInit {
     this.cidades.push(cidade);
     estado.cidadeList = this.cidades;
     this.estados.push(estado);
-
-
-/*
-    cep = new Cep();
-    cep.descricao = "876543-21";
-    ceps.push(cep);
-
-    cidade = new Cidade();
-    cidade.cidadeId = 2;
-    cidade.descricao = "Toledo";
-    cidade.cepList = ceps;
-    this.cidades.push(cidade);
-*/
 
   }
 
