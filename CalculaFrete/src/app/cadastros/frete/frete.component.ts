@@ -119,9 +119,7 @@ export class FreteComponent implements OnInit {
     console.log("Lista de Estados");
     console.log(this.estados);
     this.estadoModel = new Estado();
-    this.dataSourceEstado = new MatTableDataSource<Estado>(this.estados);
-    this.dataSourceEstado.paginator = this.paginatorCustom;
-    this.dataSourceEstado.sort = this.sort;
+    this.atualizaTableEstado();
 
   }
 
@@ -131,15 +129,15 @@ export class FreteComponent implements OnInit {
     this.estados.forEach(item => {
       if (item.estadoId == estadoId) {
         estadoUpdate = item;
-        this.estados.splice(estadoUpdate, 1);
+        this.estados.splice(this.estados.findIndex(d => d.estadoId === estadoId), 1);
       }
     });
     this.estadoModel = estadoUpdate;
   }
 
-  excluirEstado(codigo: number) {
-    console.log("chamou metodo excluir " + codigo);
-    this.estados.splice(this.estados.findIndex(d => d.estadoId === codigo), 1);
+  excluirEstado(estadoId: number) {
+    console.log("chamou metodo excluir " + estadoId);
+    this.estados.splice(this.estados.findIndex(d => d.estadoId === estadoId), 1);
     this.atualizaTableEstado();
   }
 
@@ -156,7 +154,7 @@ export class FreteComponent implements OnInit {
     this.dataSourceEstado.filterPredicate = (data: Estado, filter: string) =>
       data.estadoId.toString().indexOf(filter) != -1 ||
       data.uf.toLowerCase().indexOf(filter) != -1 ||
-      data.descricao.toString().indexOf(filter) != -1;
+      data.descricao.toLowerCase().indexOf(filter) != -1;
     this.dataSourceEstado.filter = valor;
   }
 
