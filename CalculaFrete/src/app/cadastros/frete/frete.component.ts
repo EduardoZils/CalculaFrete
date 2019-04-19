@@ -12,6 +12,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 export class FreteComponent implements OnInit {
 
   public estado: Estado;
+  private cidade: Cidade;
   public isExpandido: number;
   public estadoSelId: number;
   public estadoSel: Estado = new Estado;
@@ -23,12 +24,13 @@ export class FreteComponent implements OnInit {
   public estados: Array<Estado>;
   public cidades: Array<Cidade>;
   public ceps: Array<Cep>;
-  public dataSource: any;
+  public dataSourceEstado: any;
+  public dataSourceCidade: any;
 
 
   displayColumnsEstado: string[] = ['actionsColumn', 'estadoId', 'uf', 'descricao'];
   displayColumnsCidade: string[] = ['actionsColumn', 'cidadeId', 'descricao'];
-  s
+
 
   @ViewChild(MatPaginator) paginatorCustom: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -36,15 +38,21 @@ export class FreteComponent implements OnInit {
 
   ngOnInit() {
     this.cidades = new Array<Cidade>();
+    this.cidade = new Cidade;
     this.estado = new Estado;
     this.estados = new Array<Estado>();
     this.isExpandido = 0;
 
     this.criaDados();
-    this.dataSource = new MatTableDataSource<Estado>(this.estados);
-    this.dataSource.paginator = this.paginatorCustom;
-    console.log("DATA SOURCE" + this.dataSource)
+    this.dataSourceEstado = new MatTableDataSource<Estado>(this.estados);
+    this.dataSourceEstado.paginator = this.paginatorCustom;
+    console.log("DATA SOURCE" + this.dataSourceEstado)
     console.log(this.estados);
+
+    this.dataSourceCidade = new MatTableDataSource<Cidade>(this.cidades);
+    this.dataSourceCidade.paginator = this.paginatorCustom;
+    console.log("DATA SOURCE" + this.dataSourceCidade)
+    console.log(this.cidades);
   }
 
   setExpandido() {
@@ -104,9 +112,9 @@ export class FreteComponent implements OnInit {
     console.log("Lista de Estados");
     console.log(this.estados);
     this.estadoModel = new Estado();
-    this.dataSource = new MatTableDataSource<Estado>(this.estados);
-    this.dataSource.paginator = this.paginatorCustom;
-    this.dataSource.sort = this.sort;
+    this.dataSourceEstado = new MatTableDataSource<Estado>(this.estados);
+    this.dataSourceEstado.paginator = this.paginatorCustom;
+    this.dataSourceEstado.sort = this.sort;
 
   }
 
@@ -129,29 +137,28 @@ export class FreteComponent implements OnInit {
   }
 
   atualizaTableEstado() {
-    this.dataSource = new MatTableDataSource<Estado>(this.estados);
-    this.dataSource.paginator = this.paginatorCustom;
-    this.dataSource.sort = this.sort;
+    this.dataSourceEstado = new MatTableDataSource<Estado>(this.estados);
+    this.dataSourceEstado.paginator = this.paginatorCustom;
+    this.dataSourceEstado.sort = this.sort;
   }
 
   aplicarFiltroEstado(valor: String) {
     valor = valor.trim(); // Remove whitespace
     valor = valor.toLowerCase();
     console.log("realiza o filtro com " + valor);
-    this.dataSource.filterPredicate = (data: Estado, filter: string) =>
+    this.dataSourceEstado.filterPredicate = (data: Estado, filter: string) =>
       data.estadoId.toString().indexOf(filter) != -1 ||
       data.uf.toLowerCase().indexOf(filter) != -1 ||
       data.descricao.toString().indexOf(filter) != -1;
-    this.dataSource.filter = valor;
+    this.dataSourceEstado.filter = valor;
   }
 
 
 
-
-
+  //referente a Cidade
 
   atualizarEstadoListBox() {
-    this.dataSource = new Array<Estado>();
+    this.dataSourceEstado = new Array<Estado>();
     console.log("Chamou atualizarEstadoListBox codigo -------> " + this.estadoSelId);
     let id = this.estadoSelId;
     let estadoSelLocal;
@@ -163,6 +170,71 @@ export class FreteComponent implements OnInit {
     });
     this.estadoSel = estadoSelLocal;
   }
+
+  
+  salvarCidade() {
+   /* this.cidades.push(this.cidadeModel);
+    console.log("Cidade salva");
+    console.log(this.cidades);*/
+
+    let cidade = new Cidade();
+    console.log("Cidade Salva")
+    console.log(this.cidadeModel);
+    this.cidades.push(this.cidadeModel);
+    console.log("Lista de cidade");
+    console.log(this.cidades);
+    this.cidadeModel = new Cidade();
+    this.dataSourceCidade = new MatTableDataSource<Cidade>(this.cidades);
+    this.dataSourceCidade.paginator = this.paginatorCustom;
+    this.dataSourceCidade.sort = this.sort;
+
+
+
+
+  }
+
+  editarCidade(cidadeId: number) {
+    console.log("CHAMOU EDITAR" + cidadeId);
+    let cidadeUpdate;
+    this.cidades.forEach(item => {
+      if (item.cidadeId == cidadeId) {
+        cidadeUpdate = item;
+        this.estados.splice(cidadeUpdate, 1);
+      }
+    });
+    this.cidadeModel = cidadeUpdate;
+  }
+
+  excluirCidade(cidadeId: number) {
+    console.log("chamou metodo excluir " + cidadeId);
+    this.cidades.splice(this.cidades.findIndex(d => d.cidadeId === cidadeId), 1);
+    this.atualizaTableCidade();
+  }
+
+  atualizaTableCidade() {
+    this.dataSourceCidade = new MatTableDataSource<Cidade>(this.cidades);
+    this.dataSourceCidade.paginator = this.paginatorCustom;
+    this.dataSourceCidade.sort = this.sort;
+  }
+
+  aplicarFiltroCidade(valor: String) {
+    valor = valor.trim(); // Remove whitespace
+    valor = valor.toLowerCase();
+    console.log("realiza o filtro com " + valor);
+    this.dataSourceCidade.filterPredicate = (data: Cidade, filter: string) =>
+      data.cidadeId.toString().indexOf(filter) != -1 ||
+      data.descricao.toLowerCase().indexOf(filter) != -1 ||
+      data.cepList.toString().indexOf(filter) != -1;
+    this.dataSourceCidade.filter = valor;
+  }
+
+
+
+
+
+
+
+
 
   atualizarCidadeListBox() {
     console.log("Chamou atualizarEstadoListBox codigo -------> " + this.cidadeSelId);
@@ -181,14 +253,9 @@ export class FreteComponent implements OnInit {
 
 
   sortData() {
-    this.dataSource.sort = this.sort;
+    this.dataSourceEstado.sort = this.sort;
   }
 
-  salvarCidade() {
-    this.cidades.push(this.cidadeModel);
-    console.log("Cidade salva");
-    console.log(this.cidades);
-  }
 
   salvarCEP() {
     let cep = new Cep();

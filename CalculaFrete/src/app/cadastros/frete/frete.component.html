@@ -62,7 +62,7 @@
         <div class="row">
           <!--TABLE ESTADO-->
           <div class="col s12 m12 l12">
-            <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+            <mat-table [dataSource]="dataSourceEstado" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
               <ng-container matColumnDef="actionsColumn">
                 <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
                 <mat-cell *matCellDef="let element">
@@ -119,14 +119,14 @@
       <div class="row">
         <div class="col s12 m2 l2">
           <mat-form-field>
-            <input matInput type="number" placeholder="Código" name="codigo" [(ngModel)]="cidadeModel.codigo" />
+            <input matInput type="number" placeholder="Código" [(ngModel)]="cidadeModel.cidadeId" />
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col s12 m2 l2">
           <mat-form-field>
-            <input matInput type="text" placeholder="Descrição" name="descricao" [(ngModel)]="cidadeModel.descricao" />
+            <input matInput type="text" placeholder="Descrição" [(ngModel)]="cidadeModel.descricao" />
           </mat-form-field>
         </div>
 
@@ -134,8 +134,8 @@
           <mat-form-field>
             <mat-label>Estado</mat-label>
             <mat-select name="estado" [(ngModel)]="estadoSelId" (selectionChange)="atualizaEstadoListBox()">
-              <mat-option *ngFor="let estado of estados" [value]="estado.codigo">
-                {{estado.descricao + estado.uf}}
+              <mat-option *ngFor="let estado of estados" [value]="estado.estadoId">
+                {{estado.descricao + " - " + estado.uf}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -146,31 +146,44 @@
       <div class="row footer-btn">
         <div class="button-row col s12">
           <button mat-raised-button (click)="voltar()">Voltar</button>
-          <button mat-raised-button color="green" (click)="salvarCidade()">Salvar Cidade</button>
+          <button mat-raised-button color="green" (click)="salvarCidade()">Salvar</button>
         </div>
       </div>
 
       <div class="row">
-        <!--TABLE ESTADO-->
         <div class="col s12 m12 l12">
-          <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
-            <ng-container matColumnDef="codigo">
-              <!--CÓDIGO-->
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>>
-              <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
+          <mat-table [dataSource]="dataSourceCidade" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="actionsColumn">
+              <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <button mat-icon-button>
+                  <mat-icon class="link_action" svgIcon="form-trash" matTooltip="Excluir"
+                    (click)="excluirCidade(element.cidadeId)"></mat-icon>
+                </button>
+                <button mat-icon-button>
+                  <mat-icon class="link_action" svgIcon="form-edit" matTooltip="Editar"
+                    (click)="editarCidade(element.cidadeId)">
+                  </mat-icon>
+                </button>
+              </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="uf">
-              <!--UF-->
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Uf </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.uf}} </mat-cell>
+            <ng-container matColumnDef="cidadeId">
+              <!--CÓDIGO-->
+              <mat-header-cell *matHeaderCellDef mat-sort-header> codigo </mat-header-cell>>
+              <mat-cell *matCellDef="let element"> {{element.cidadeId}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="descricao">
-              <!--DESCRIÇÃO-->
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
+              <!--DESCRICAO-->
+              <mat-header-cell *matHeaderCellDef mat-sort-header> descricao </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedCollumnsCidade"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedCollumnsCidade;"></mat-row>
+          <!-- <ng-container matColumnDef="descricao">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> estado </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.estado}} </mat-cell>
+            </ng-container>-->
+            <mat-header-row *matHeaderRowDef="displayColumnsCidade"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayColumnsCidade;"></mat-row>
           </mat-table>
           <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButton></mat-paginator>
         </div>
