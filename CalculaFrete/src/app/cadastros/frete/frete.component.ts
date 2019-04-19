@@ -28,7 +28,7 @@ export class FreteComponent implements OnInit {
 
   displayColumnsEstado: string[] = ['actionsColumn', 'codigo', 'uf', 'descricao'];
   displayColumnsCidade: string[] = ['actionsColumn','codigo', 'descricao'];
-
+s
 
   @ViewChild(MatPaginator) paginatorCustom: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -164,12 +164,28 @@ export class FreteComponent implements OnInit {
 
   }
 
-  editar(){
-
+  editar(codigo: number) {
+    let estadoUpdate;
+    this.estados.forEach(item => {
+      if (item.codigo == codigo) {
+        estadoUpdate = item;
+        this.estados.splice(estadoUpdate, 1);
+      }
+    });
+    this.estadoModel = estadoUpdate;
   }
 
-  excluir(){
 
+  excluir(codigo: number){
+    console.log("chamou metodo excluir " + codigo);
+    this.estados.splice(this.estados.findIndex(d => d.codigo === codigo), 1);
+    this.atualizaTable();
+  }
+
+  atualizaTable() {
+    this.dataSource = new MatTableDataSource<Estado>(this.estados);
+    this.dataSource.paginator = this.paginatorCustom;
+    this.dataSource.sort = this.sort;
   }
 
   aplicarFiltroEstado(valor: String){
