@@ -215,14 +215,21 @@
         <div class="row">
           <div class="col s12 m2 l2">
             <mat-form-field>
-              <input matInput type="text" placeholder="cep" />
+              <input matInput type="number" placeholder="codigo" [(ngModel)]="cepModel.cepId" />
             </mat-form-field>
           </div>
         </div>
-        <div>
+        <div class="row">
+          <div class="col s12 m2 l2">
+            <mat-form-field>
+              <input matInput type="number" placeholder="descricao" [(ngModel)]="cepModel.descricao" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col s12 m2 l2">
           <mat-form-field>
-            <mat-label>Cidade</mat-label>
-            <mat-select>
+            <mat-label>Estado</mat-label>
+            <mat-select name="estado" [(ngModel)]="cepModel.cidade" (selectionChange)="atualizarCidadeListBox()">
               <mat-option *ngFor="let cidade of cidades" [value]="cidade.descricao">
                 {{cidade.descricao}}
               </mat-option>
@@ -234,6 +241,48 @@
             <button mat-raised-button (click)="voltar()">Voltar</button>
             <button mat-raised-button color="green" (click)="salvarCep()">Salvar</button>
             <!--<button *ngIf="edicao" mat-raised-button color="green" (click)="atualizar()">Atualizar</button>-->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12 m12 l12">
+            <mat-table [dataSource]="dataSourceCep" matSort (matSortChange)="sortData($event)"
+              class="mat-elevation-z8">
+  
+              <ng-container matColumnDef="actionsColumn">
+                <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <button mat-icon-button>
+                    <mat-icon class="link_action" svgIcon="form-trash" matTooltip="Excluir"
+                      (click)="excluirCep(element.descricao)"></mat-icon>
+                  </button>
+                  <button mat-icon-button>
+                    <mat-icon class="link_action" svgIcon="form-edit" matTooltip="Editar"
+                      (click)="editarCep(element.descricao)">
+                    </mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="cepId">
+                <!--CÓDIGO-->
+                <mat-header-cell *matHeaderCellDef mat-sort-header> codigo </mat-header-cell>>
+                <mat-cell *matCellDef="let element"> {{element.cepId}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="descricao">
+                <!--CÓDIGO-->
+                <mat-header-cell *matHeaderCellDef mat-sort-header> descricao </mat-header-cell>>
+                <mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="cidade">
+                <!--DESCRICAO-->
+                <mat-header-cell *matHeaderCellDef mat-sort-header> cidade </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.cidade}} </mat-cell>
+              </ng-container>
+            
+              <mat-header-row *matHeaderRowDef="displayColumnsCep"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayColumnsCep;"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButton></mat-paginator>
           </div>
         </div>
       </mat-expansion-panel>

@@ -20,17 +20,20 @@ export class FreteComponent implements OnInit {
   public cidadeSel: Cidade = new Cidade;
   public cidadeModel: Cidade = new Cidade();
   public estadoModel: Estado = new Estado();
+  public cepModel: Cep = new Cep();
 
   public estados: Array<Estado>;
   public cidades: Array<Cidade>;
   public ceps: Array<Cep>;
+  //public cepsCidade: Array<Cep>;
   public dataSourceEstado: any;
   public dataSourceCidade: any;
+  public dataSourceCep: any;
 
 
   displayColumnsEstado: string[] = ['actionsColumn', 'estadoId', 'uf', 'descricao'];
   displayColumnsCidade: string[] = ['actionsColumn', 'cidadeId', 'descricao', 'estado'];
-  displayColumnsCep: string[] = ['actionsColumn', 'descricao', 'cidade'];
+  displayColumnsCep: string[] = ['actionsColumn','cepId', 'descricao', 'cidade'];
 
 
   @ViewChild(MatPaginator) paginatorCustom: MatPaginator;
@@ -42,9 +45,14 @@ export class FreteComponent implements OnInit {
     this.cidade = new Cidade;
     this.estado = new Estado;
     this.estados = new Array<Estado>();
+    this.ceps = new Array<Cep>();
     this.isExpandido = 0;
 
     this.criaDados();
+    this.atualizaTableEstado();
+    this.atualizaTableCidade();
+    this.atualizaTableCep();
+
 
   }
 
@@ -64,7 +72,7 @@ export class FreteComponent implements OnInit {
     let cidade;
 
     let cep;
-    let ceps = new Array<Cep>();
+
 
 
     estado = new Estado();
@@ -76,9 +84,29 @@ export class FreteComponent implements OnInit {
     cidade.descricao = "Cascavel";
     cidade.estado = estado.descricao;
     cep = new Cep();
+    cep.cepId = 1;
     cep.descricao = "123456-78";
-    ceps.push(cep);
-    cidade.cepList = ceps;
+    cep.cidade = cidade.descricao;
+    this.ceps.push(cep);
+    cidade.cepList = this.ceps;
+    this.cidades.push(cidade);
+    estado.cidadeList = this.cidades;
+    this.estados.push(estado);
+
+    estado = new Estado();
+    estado.estadoId = 2;
+    estado.descricao = "Rio Grande do Sul";
+    estado.uf = "RS";
+    cidade = new Cidade();
+    cidade.cidadeId = 1;
+    cidade.descricao = "Porto Alegre";
+    cidade.estado = estado.descricao;
+    cep = new Cep();
+    cep.cepId = 2;
+    cep.descricao = "85945-000";
+    cep.cidade = cidade.descricao;
+    this.ceps.push(cep);
+    cidade.cepList = this.ceps;
     this.cidades.push(cidade);
     estado.cidadeList = this.cidades;
     this.estados.push(estado);
@@ -96,17 +124,6 @@ export class FreteComponent implements OnInit {
     this.cidades.push(cidade);
 */
 
-
-
-    this.dataSourceEstado = new MatTableDataSource<Estado>(this.estados);
-    this.dataSourceEstado.paginator = this.paginatorCustom;
-    console.log("DATA SOURCE ESTADO" + this.dataSourceEstado)
-    console.log(this.estados);
-
-    this.dataSourceCidade = new MatTableDataSource<Cidade>(this.cidades);
-    this.dataSourceCidade.paginator = this.paginatorCustom;
-    console.log("DATA SOURCE CIDADE" + this.dataSourceCidade)
-    console.log(this.cidades);
   }
 
 
@@ -176,6 +193,7 @@ export class FreteComponent implements OnInit {
       }
     });
     this.estadoSel = estadoSelLocal;
+    this.atualizaTableEstado();
   }
 
   
@@ -196,6 +214,9 @@ export class FreteComponent implements OnInit {
     this.dataSourceCidade.sort = this.sort;
 
   }
+
+
+
 
   editarCidade(cidadeId: number) {
     console.log("CHAMOU EDITAR" + cidadeId);
@@ -249,21 +270,57 @@ export class FreteComponent implements OnInit {
   }
 
   salvarCep() {
-    let cep = new Cep();
+    /*let cep = new Cep();
     let id = this.cidadeSelId
     let cepsCidade = this.cidadeSel.cepList;
     console.log("Cep Salvo -->" + cep);
     this.cidades.forEach(item => {
       if (item.cidadeId == id) {
-        item.cepList.push(this.cepsCidade);
+        item.cepList.push(cep);
+        this.ceps.push(cep);
+
       }
-    });
-  }
+    });*/
+
+    let cep = new Cep();
+    console.log("Cep Salvo")
+    console.log(this.cepModel);
+    this.ceps.push(this.cepModel);
+    console.log("Lista de Cep");          
+    console.log(this.ceps);
+    this.cepModel = new Cep();
+    this.dataSourceCep = new MatTableDataSource<Cep>(this.ceps);
+    this.dataSourceCep.paginator = this.paginatorCustom;
+    this.dataSourceCep.sort = this.sort;
+} 
 
 
 
 
 
+editarCep(cepId: number) {
+  console.log("CHAMOU EDITAR" + cepId);
+  let cepUpdate;
+  this.ceps.forEach(item => {
+    if (item.cepId == cepId) {
+      cepUpdate = item;
+      this.ceps.splice(cepId, 1);
+    }
+  });
+  this.cepModel = cepUpdate;
+}
+
+excluirCep(cepId: number) {
+  console.log("chamou metodo excluir " + cepId);
+  this.ceps.splice(this.ceps.findIndex(d => d.cepId === cepId), 1);
+  this.atualizaTableCep();
+}
+
+atualizaTableCep() {
+  this.dataSourceCep = new MatTableDataSource<Cep>(this.ceps);
+  this.dataSourceCep.paginator = this.paginatorCustom;
+  this.dataSourceCep.sort = this.sort;
+}
 
 
   voltar() {
