@@ -94,7 +94,7 @@ export class FreteComponent implements OnInit {
     estado.descricao = "Rio Grande do Sul";
     estado.uf = "RS";
     cidade = new Cidade();
-    cidade.cidadeId = 1;
+    cidade.cidadeId = 2;
     cidade.descricao = "Porto Alegre";
     cidade.estado = estado.descricao;
     cep = new Cep();
@@ -205,7 +205,7 @@ export class FreteComponent implements OnInit {
     this.cidades.forEach(item => {
       if (item.cidadeId == cidadeId) {
         cidadeUpdate = item;
-        this.estados.splice(cidadeId, 1);
+        this.cidades.splice(this.cidades.findIndex(d => d.cidadeId === cidadeId), 1);
       }
     });
     this.cidadeModel = cidadeUpdate;
