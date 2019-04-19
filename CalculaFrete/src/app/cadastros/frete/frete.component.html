@@ -11,9 +11,6 @@
   <div class="col s12">
     <mat-accordion>
       <mat-expansion-panel name="panelCadastroEstado" [expanded]="isExpandido === 1" (opened)="setExpandido()">
-
-
-
         <!--ESTADO-->
         <mat-expansion-panel-header>
           <mat-panel-title>Cadastro de Estado</mat-panel-title>
@@ -47,7 +44,6 @@
             <button mat-raised-button color="green" (click)="salvarEstado()">Salvar</button>
           </div>
         </div>
-
         <!--Aplicar Filtros-->
         <div class="row heading">
           <div class="col s12">
@@ -63,29 +59,24 @@
             </div>
           </div>
         </div>
-
-
         <div class="row">
           <!--TABLE ESTADO-->
           <div class="col s12 m12 l12">
             <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
-
               <ng-container matColumnDef="actionsColumn">
                 <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                   <button mat-icon-button>
                     <mat-icon class="link_action" svgIcon="form-trash" matTooltip="Excluir"
-                      (click)="excluir(element.estadoId)"></mat-icon>
+                      (click)="excluirEstado(element.estadoId)"></mat-icon>
                   </button>
                   <button mat-icon-button>
                     <mat-icon class="link_action" svgIcon="form-edit" matTooltip="Editar"
-                      (click)="editar(element.estadoId)">
+                      (click)="editarEstado(element.estadoId)">
                     </mat-icon>
                   </button>
                 </mat-cell>
               </ng-container>
-
-
               <ng-container matColumnDef="estadoId">
                 <!--CÓDIGO-->
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>>

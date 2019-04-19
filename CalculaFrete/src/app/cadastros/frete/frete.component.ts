@@ -27,8 +27,8 @@ export class FreteComponent implements OnInit {
 
 
   displayColumnsEstado: string[] = ['actionsColumn', 'estadoId', 'uf', 'descricao'];
-  displayColumnsCidade: string[] = ['actionsColumn','cidadeId', 'descricao'];
-s
+  displayColumnsCidade: string[] = ['actionsColumn', 'cidadeId', 'descricao'];
+  s
 
   @ViewChild(MatPaginator) paginatorCustom: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -95,6 +95,61 @@ s
   }
 
 
+  //referente a ESTADO
+  salvarEstado() {
+    let estado = new Estado();
+    console.log("Estado Salvo")
+    console.log(this.estadoModel);
+    this.estados.push(this.estadoModel);
+    console.log("Lista de Estados");
+    console.log(this.estados);
+    this.estadoModel = new Estado();
+    this.dataSource = new MatTableDataSource<Estado>(this.estados);
+    this.dataSource.paginator = this.paginatorCustom;
+    this.dataSource.sort = this.sort;
+
+  }
+
+  editarEstado(estadoId: number) {
+    console.log("CHAMOU EDITAR" + estadoId);
+    let estadoUpdate;
+    this.estados.forEach(item => {
+      if (item.estadoId == estadoId) {
+        estadoUpdate = item;
+        this.estados.splice(estadoUpdate, 1);
+      }
+    });
+    this.estadoModel = estadoUpdate;
+  }
+
+  excluirEstado(codigo: number) {
+    console.log("chamou metodo excluir " + codigo);
+    this.estados.splice(this.estados.findIndex(d => d.estadoId === codigo), 1);
+    this.atualizaTableEstado();
+  }
+
+  atualizaTableEstado() {
+    this.dataSource = new MatTableDataSource<Estado>(this.estados);
+    this.dataSource.paginator = this.paginatorCustom;
+    this.dataSource.sort = this.sort;
+  }
+
+  aplicarFiltroEstado(valor: String) {
+    valor = valor.trim(); // Remove whitespace
+    valor = valor.toLowerCase();
+    console.log("realiza o filtro com " + valor);
+    this.dataSource.filterPredicate = (data: Estado, filter: string) =>
+      data.estadoId.toString().indexOf(filter) != -1 ||
+      data.uf.toLowerCase().indexOf(filter) != -1 ||
+      data.descricao.toString().indexOf(filter) != -1;
+    this.dataSource.filter = valor;
+  }
+
+
+
+
+
+
   atualizarEstadoListBox() {
     this.dataSource = new Array<Estado>();
     console.log("Chamou atualizarEstadoListBox codigo -------> " + this.estadoSelId);
@@ -123,30 +178,6 @@ s
   }
 
 
-  salvarEstado() {
-    /*console.log("Estado Salvo");
-    console.log(this.estado)
-    this.estados.push(this.estado);
-    console.log("Lista de Estados");
-    console.log(this.estados);
-    this.estado = new Estado();
-    this.dataSource = new MatTableDataSource<Estado>(this.estados);
-    this.dataSource.paginator = this.paginatorCustom;
-    console.log("DATA SOURCE" + this.dataSource)
-    console.log(this.estados);
-*/
-    let estado = new Estado();
-    console.log("Estado Salvo")
-    console.log(this.estadoModel);
-    this.estados.push(this.estadoModel);
-    console.log("Lista de Estados");
-    console.log(this.estados);
-    this.estadoModel = new Estado();
-    this.dataSource = new MatTableDataSource<Estado>(this.estados);
-    this.dataSource.paginator = this.paginatorCustom;
-    this.dataSource.sort = this.sort;     
-
-  }
 
 
   sortData() {
@@ -171,42 +202,11 @@ s
     });
   }
 
-  voltar(){
+  voltar() {
 
   }
 
-  editar(estadoId: number) {
-    console.log("CHAMOU EDITAR" + estadoId);
-    let estadoUpdate;
-    this.estados.forEach(item => {
-      if (item.estadoId == estadoId) {
-        estadoUpdate = item;
-        this.estados.splice(estadoUpdate, 1);
-      }
-    });
-    this.estadoModel = estadoUpdate;
-  }
 
-  excluir(codigo: number){
-    console.log("chamou metodo excluir " + codigo);
-    this.estados.splice(this.estados.findIndex(d => d.estadoId === codigo), 1);
-    this.atualizaTableEstado();
-  }
 
-  atualizaTableEstado() {
-    this.dataSource = new MatTableDataSource<Estado>(this.estados);
-    this.dataSource.paginator = this.paginatorCustom;
-    this.dataSource.sort = this.sort;
-  }
 
-  aplicarFiltroEstado(valor: String){
-    valor = valor.trim(); // Remove whitespace
-    valor = valor.toLowerCase();
-    console.log("realiza o filtro com " + valor);
-    this.dataSource.filterPredicate = (data: Estado, filter: string) =>
-      data.estadoId.toString().indexOf(filter) != -1 ||
-      data.uf.toLowerCase().indexOf(filter) != -1 ||
-      data.descricao.toString().indexOf(filter) != -1;
-    this.dataSource.filter = valor;
-  }
 }
