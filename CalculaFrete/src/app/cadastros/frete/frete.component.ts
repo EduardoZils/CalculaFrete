@@ -29,7 +29,8 @@ export class FreteComponent implements OnInit {
 
 
   displayColumnsEstado: string[] = ['actionsColumn', 'estadoId', 'uf', 'descricao'];
-  displayColumnsCidade: string[] = ['actionsColumn', 'cidadeId', 'descricao'];
+  displayColumnsCidade: string[] = ['actionsColumn', 'cidadeId', 'descricao', 'estado'];
+  displayColumnsCep: string[] = ['actionsColumn', 'descricao', 'cidade'];
 
 
   @ViewChild(MatPaginator) paginatorCustom: MatPaginator;
@@ -44,20 +45,19 @@ export class FreteComponent implements OnInit {
     this.isExpandido = 0;
 
     this.criaDados();
-    this.dataSourceEstado = new MatTableDataSource<Estado>(this.estados);
-    this.dataSourceEstado.paginator = this.paginatorCustom;
-    console.log("DATA SOURCE" + this.dataSourceEstado)
-    console.log(this.estados);
 
-    this.dataSourceCidade = new MatTableDataSource<Cidade>(this.cidades);
-    this.dataSourceCidade.paginator = this.paginatorCustom;
-    console.log("DATA SOURCE" + this.dataSourceCidade)
-    console.log(this.cidades);
   }
 
   setExpandido() {
     this.isExpandido = 1;
   }
+
+  
+  sortData() {
+    this.dataSourceEstado.sort = this.sort;
+    this.dataSourceCidade.sort = this.sort;
+  }
+
 
   criaDados() {
     let estado;
@@ -79,13 +79,13 @@ export class FreteComponent implements OnInit {
     cidade.cidadeId = 1;
     cidade.descricao = "Cascavel";
     cidade.cepList = ceps;
-    cidades.push(cidade);
+    this.cidades.push(cidade);
 
     cidade = new Cidade();
     cidade.cidadeId = 2;
     cidade.descricao = "Toledo";
     cidade.cepList = ceps;
-    cidades.push(cidade);
+    this.cidades.push(cidade);
 
     estado = new Estado();
     estado.estadoId = 1;
@@ -100,6 +100,16 @@ export class FreteComponent implements OnInit {
     estado.uf = "RS";
     estado.cidadeList = cidades;
     this.estados.push(estado);
+
+    this.dataSourceEstado = new MatTableDataSource<Estado>(this.estados);
+    this.dataSourceEstado.paginator = this.paginatorCustom;
+    console.log("DATA SOURCE ESTADO" + this.dataSourceEstado)
+    console.log(this.estados);
+
+    this.dataSourceCidade = new MatTableDataSource<Cidade>(this.cidades);
+    this.dataSourceCidade.paginator = this.paginatorCustom;
+    console.log("DATA SOURCE CIDADE" + this.dataSourceCidade)
+    console.log(this.cidades);
   }
 
 
@@ -188,9 +198,6 @@ export class FreteComponent implements OnInit {
     this.dataSourceCidade.paginator = this.paginatorCustom;
     this.dataSourceCidade.sort = this.sort;
 
-
-
-
   }
 
   editarCidade(cidadeId: number) {
@@ -199,7 +206,7 @@ export class FreteComponent implements OnInit {
     this.cidades.forEach(item => {
       if (item.cidadeId == cidadeId) {
         cidadeUpdate = item;
-        this.estados.splice(cidadeUpdate, 1);
+        this.estados.splice(cidadeId, 1);
       }
     });
     this.cidadeModel = cidadeUpdate;
@@ -230,12 +237,7 @@ export class FreteComponent implements OnInit {
 
 
 
-
-
-
-
-
-
+//referente a cep
   atualizarCidadeListBox() {
     console.log("Chamou atualizarEstadoListBox codigo -------> " + this.cidadeSelId);
     let id = this.cidadeSelId;
@@ -249,25 +251,23 @@ export class FreteComponent implements OnInit {
     this.cidadeSel = cidadeSelLocal;
   }
 
-
-
-
-  sortData() {
-    this.dataSourceEstado.sort = this.sort;
-  }
-
-
-  salvarCEP() {
+  salvarCep() {
     let cep = new Cep();
     let id = this.cidadeSelId
     let cepsCidade = this.cidadeSel.cepList;
     console.log("Cep Salvo -->" + cep);
     this.cidades.forEach(item => {
       if (item.cidadeId == id) {
-        //item.cepList.push(this.cepsCidade);
+        item.cepList.push(this.cepsCidade);
       }
     });
   }
+
+
+
+
+
+
 
   voltar() {
 

@@ -62,7 +62,8 @@
         <div class="row">
           <!--TABLE ESTADO-->
           <div class="col s12 m12 l12">
-            <mat-table [dataSource]="dataSourceEstado" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+            <mat-table [dataSource]="dataSourceEstado" matSort (matSortChange)="sortData($event)"
+              class="mat-elevation-z8">
               <ng-container matColumnDef="actionsColumn">
                 <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
                 <mat-cell *matCellDef="let element">
@@ -133,13 +134,15 @@
         <div class="col s12 m2 l2">
           <mat-form-field>
             <mat-label>Estado</mat-label>
-            <mat-select name="estado" [(ngModel)]="estadoSelId" (selectionChange)="atualizaEstadoListBox()">
-              <mat-option *ngFor="let estado of estados" [value]="estado.estadoId">
+            <mat-select name="estado" [(ngModel)]="cidadeModel.estado" (selectionChange)="atualizarEstadoListBox()">
+              <mat-option *ngFor="let estado of estados" [value]="estado.descricao">
                 {{estado.descricao + " - " + estado.uf}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
+        
+
       </div>
 
       <!--BOTÃO CIDADE-->
@@ -152,7 +155,8 @@
 
       <div class="row">
         <div class="col s12 m12 l12">
-          <mat-table [dataSource]="dataSourceCidade" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
+          <mat-table [dataSource]="dataSourceCidade" matSort (matSortChange)="sortData($event)"
+            class="mat-elevation-z8">
 
             <ng-container matColumnDef="actionsColumn">
               <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
@@ -178,10 +182,10 @@
               <mat-header-cell *matHeaderCellDef mat-sort-header> descricao </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
             </ng-container>
-          <!-- <ng-container matColumnDef="descricao">
+            <ng-container matColumnDef="estado">
               <mat-header-cell *matHeaderCellDef mat-sort-header> estado </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.estado}} </mat-cell>
-            </ng-container>-->
+            </ng-container>
             <mat-header-row *matHeaderRowDef="displayColumnsCidade"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayColumnsCidade;"></mat-row>
           </mat-table>
@@ -192,10 +196,14 @@
   </div>
 </div>
 
+
+
 <div class="row">
   <!--PARA TER UM ESPAÇO ENTRE OS EXPANSION-PANEL-->
   <div class="col s12 m12 l12"></div>
 </div>
+
+
 <div class="row">
   <div class="col s12">
     <mat-accordion>
@@ -215,7 +223,7 @@
           <mat-form-field>
             <mat-label>Cidade</mat-label>
             <mat-select>
-              <mat-option *ngFor="let cidade of cidades" [value]="cidade.codigo">
+              <mat-option *ngFor="let cidade of cidades" [value]="cidade.descricao">
                 {{cidade.descricao}}
               </mat-option>
             </mat-select>
