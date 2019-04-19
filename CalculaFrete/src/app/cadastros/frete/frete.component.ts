@@ -12,7 +12,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 export class FreteComponent implements OnInit {
 
   public estado: Estado;
-  private cidade: Cidade;
+  public cidade: Cidade;
   public isExpandido: number;
   public estadoSelId: number;
   public estadoSel: Estado = new Estado;
@@ -62,44 +62,41 @@ export class FreteComponent implements OnInit {
   criaDados() {
     let estado;
     let cidade;
-    let cidades = new Array<Cidade>();
 
     let cep;
     let ceps = new Array<Cep>();
 
-    cep = new Cep();
-    cep.descricao = "123456-78";
-    ceps.push(cep);
 
-    cep = new Cep();
-    cep.descricao = "876543-21";
-    ceps.push(cep);
-
+    estado = new Estado();
+    estado.estadoId = 1;
+    estado.descricao = "Paraná";
+    estado.uf = "PR";
     cidade = new Cidade();
     cidade.cidadeId = 1;
     cidade.descricao = "Cascavel";
+    cidade.estado = estado.descricao;
+    cep = new Cep();
+    cep.descricao = "123456-78";
+    ceps.push(cep);
     cidade.cepList = ceps;
     this.cidades.push(cidade);
+    estado.cidadeList = this.cidades;
+    this.estados.push(estado);
+
+
+/*
+    cep = new Cep();
+    cep.descricao = "876543-21";
+    ceps.push(cep);
 
     cidade = new Cidade();
     cidade.cidadeId = 2;
     cidade.descricao = "Toledo";
     cidade.cepList = ceps;
     this.cidades.push(cidade);
+*/
 
-    estado = new Estado();
-    estado.estadoId = 1;
-    estado.descricao = "Paraná";
-    estado.uf = "PR";
-    estado.cidadeList = cidades;
-    this.estados.push(estado);
 
-    estado = new Estado();
-    estado.estadoId = 2;
-    estado.descricao = "Rio Grande do Sul";
-    estado.uf = "RS";
-    estado.cidadeList = cidades;
-    this.estados.push(estado);
 
     this.dataSourceEstado = new MatTableDataSource<Estado>(this.estados);
     this.dataSourceEstado.paginator = this.paginatorCustom;
