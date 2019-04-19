@@ -20,14 +20,14 @@ export class FreteComponent implements OnInit {
   public cidadeModel: Cidade = new Cidade();
   public estadoModel: Estado = new Estado();
 
-  public estados: any;
-  public cidades: any;
-  public ceps: any;
+  public estados: Array<Estado>;
+  public cidades: Array<Cidade>;
+  public ceps: Array<Cep>;
   public dataSource: any;
 
 
-  displayColumnsEstado: string[] = ['actionsColumn', 'codigo', 'uf', 'descricao'];
-  displayColumnsCidade: string[] = ['actionsColumn','codigo', 'descricao'];
+  displayColumnsEstado: string[] = ['actionsColumn', 'estadoId', 'uf', 'descricao'];
+  displayColumnsCidade: string[] = ['actionsColumn','cidadeId', 'descricao'];
 s
 
   @ViewChild(MatPaginator) paginatorCustom: MatPaginator;
@@ -36,7 +36,6 @@ s
 
   ngOnInit() {
     this.cidades = new Array<Cidade>();
-    this.estados = new Array<Estado>();
     this.estado = new Estado;
     this.estados = new Array<Estado>();
     this.isExpandido = 0;
@@ -69,26 +68,26 @@ s
     ceps.push(cep);
 
     cidade = new Cidade();
-    cidade.codigo = 1;
+    cidade.cidadeId = 1;
     cidade.descricao = "Cascavel";
     cidade.cepList = ceps;
     cidades.push(cidade);
 
     cidade = new Cidade();
-    cidade.codigo = 2;
+    cidade.cidadeId = 2;
     cidade.descricao = "Toledo";
     cidade.cepList = ceps;
     cidades.push(cidade);
 
     estado = new Estado();
-    estado.codigo = 1;
+    estado.estadoId = 1;
     estado.descricao = "Paraná";
     estado.uf = "PR";
     estado.cidadeList = cidades;
     this.estados.push(estado);
 
     estado = new Estado();
-    estado.codigo = 2;
+    estado.estadoId = 2;
     estado.descricao = "Rio Grande do Sul";
     estado.uf = "RS";
     estado.cidadeList = cidades;
@@ -104,7 +103,7 @@ s
     this.estados.forEach(item => {
       if (item.estadoId == id) {
         estadoSelLocal = item;
-        alert("Propriedade da pessoa selecionada " + item.cidades)
+        alert("Propriedade da pessoa selecionada " + item.cidadeList);
       }
     });
     this.estadoSel = estadoSelLocal;
@@ -115,9 +114,9 @@ s
     let id = this.cidadeSelId;
     let cidadeSelLocal;
     this.estados.forEach(item => {
-      if (item.cidadeId == id) {
+      if (item.estadoId == id) {
         cidadeSelLocal = item;
-        alert("Propriedade da pessoa selecionada " + item.cidades)
+        alert("Propriedade da pessoa selecionada " + item.cidadeList)
       }
     });
     this.cidadeSel = cidadeSelLocal;
@@ -125,7 +124,7 @@ s
 
 
   salvarEstado() {
-    console.log("Estado Salvo");
+    /*console.log("Estado Salvo");
     console.log(this.estado)
     this.estados.push(this.estado);
     console.log("Lista de Estados");
@@ -135,6 +134,18 @@ s
     this.dataSource.paginator = this.paginatorCustom;
     console.log("DATA SOURCE" + this.dataSource)
     console.log(this.estados);
+*/
+    let estado = new Estado();
+    console.log("Estado Salvo")
+    console.log(this.estadoModel);
+    this.estados.push(this.estadoModel);
+    console.log("Lista de Estados");
+    console.log(this.estados);
+    this.estadoModel = new Estado();
+    this.dataSource = new MatTableDataSource<Estado>(this.estados);
+    this.dataSource.paginator = this.paginatorCustom;
+    this.dataSource.sort = this.sort;     
+
   }
 
 
@@ -154,8 +165,8 @@ s
     let cepsCidade = this.cidadeSel.cepList;
     console.log("Cep Salvo -->" + cep);
     this.cidades.forEach(item => {
-      if (item.cidadeID == id) {
-        item.cepList.push(cepsCidade);
+      if (item.cidadeId == id) {
+        //item.cepList.push(this.cepsCidade);
       }
     });
   }
@@ -164,10 +175,11 @@ s
 
   }
 
-  editar(codigo: number) {
+  editar(estadoId: number) {
+    console.log("CHAMOU EDITAR" + estadoId);
     let estadoUpdate;
     this.estados.forEach(item => {
-      if (item.codigo == codigo) {
+      if (item.estadoId == estadoId) {
         estadoUpdate = item;
         this.estados.splice(estadoUpdate, 1);
       }
@@ -175,14 +187,13 @@ s
     this.estadoModel = estadoUpdate;
   }
 
-
   excluir(codigo: number){
     console.log("chamou metodo excluir " + codigo);
-    this.estados.splice(this.estados.findIndex(d => d.codigo === codigo), 1);
-    this.atualizaTable();
+    this.estados.splice(this.estados.findIndex(d => d.estadoId === codigo), 1);
+    this.atualizaTableEstado();
   }
 
-  atualizaTable() {
+  atualizaTableEstado() {
     this.dataSource = new MatTableDataSource<Estado>(this.estados);
     this.dataSource.paginator = this.paginatorCustom;
     this.dataSource.sort = this.sort;
@@ -191,10 +202,9 @@ s
   aplicarFiltroEstado(valor: String){
     valor = valor.trim(); // Remove whitespace
     valor = valor.toLowerCase();
-
     console.log("realiza o filtro com " + valor);
     this.dataSource.filterPredicate = (data: Estado, filter: string) =>
-      data.codigo.toString().indexOf(filter) != -1 ||
+      data.estadoId.toString().indexOf(filter) != -1 ||
       data.uf.toLowerCase().indexOf(filter) != -1 ||
       data.descricao.toString().indexOf(filter) != -1;
     this.dataSource.filter = valor;

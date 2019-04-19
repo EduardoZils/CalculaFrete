@@ -22,13 +22,13 @@
         <div class="row">
           <div class="col s12 m2 l2">
             <mat-form-field>
-              <input matInput type="number" placeholder="Código" [(ngModel)]="estado.codigo" required />
+              <input matInput type="number" placeholder="Código" [(ngModel)]="estadoModel.estadoId" required />
             </mat-form-field>
           </div>
           <div class="row">
             <div class="col s12 m2 l2">
               <mat-form-field>
-                <input matInput type="text" placeholder="UF" [(ngModel)]="estado.uf" required />
+                <input matInput type="text" placeholder="UF" [(ngModel)]="estadoModel.uf" required />
               </mat-form-field>
             </div>
           </div>
@@ -36,7 +36,7 @@
         <div class="row">
           <div class="col s12 m2 l2">
             <mat-form-field>
-              <input matInput type="text" placeholder="Descrição" [(ngModel)]="estado.descricao" required />
+              <input matInput type="text" placeholder="Descrição" [(ngModel)]="estadoModel.descricao" required />
             </mat-form-field>
           </div>
         </div>
@@ -75,21 +75,21 @@
                 <mat-cell *matCellDef="let element">
                   <button mat-icon-button>
                     <mat-icon class="link_action" svgIcon="form-trash" matTooltip="Excluir"
-                      (click)="excluir(element.codigo)"></mat-icon>
+                      (click)="excluir(element.estadoId)"></mat-icon>
                   </button>
                   <button mat-icon-button>
                     <mat-icon class="link_action" svgIcon="form-edit" matTooltip="Editar"
-                      (click)="editar(element.codigo)">
+                      (click)="editar(element.estadoId)">
                     </mat-icon>
                   </button>
                 </mat-cell>
               </ng-container>
 
 
-              <ng-container matColumnDef="codigo">
+              <ng-container matColumnDef="estadoId">
                 <!--CÓDIGO-->
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>>
-                <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{element.estadoId}} </mat-cell>
               </ng-container>
               <ng-container matColumnDef="uf">
                 <!--UF-->
