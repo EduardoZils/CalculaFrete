@@ -40,7 +40,6 @@
         <div class="row footer-btn">
           <!--BOTÃO SALVAR ESTADO-->
           <div class="button-row col s12">
-            <button mat-raised-button (click)="voltar()">Voltar</button>
             <button mat-raised-button color="green" (click)="salvarEstado()">Salvar</button>
           </div>
         </div>
@@ -148,8 +147,22 @@
       <!--BOTÃO CIDADE-->
       <div class="row footer-btn">
         <div class="button-row col s12">
-          <button mat-raised-button (click)="voltar()">Voltar</button>
           <button mat-raised-button color="green" (click)="salvarCidade()">Salvar</button>
+        </div>
+      </div>
+
+      <div class="row heading">
+        <div class="col s12">
+          <h2 class="title">Lista de Cidades</h2>
+          <div class="heading__tools">
+            <div class="search">
+              <mat-form-field>
+                <mat-icon svgIcon="slidenav-search"></mat-icon>
+                <input matInput id="pesquisarId" name="pesquisar" placeholder="Pesquisar"
+                  (keyup)="aplicarFiltroCidade($event.target.value)">
+              </mat-form-field>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -215,21 +228,21 @@
         <div class="row">
           <div class="col s12 m6 l6">
             <mat-form-field>
-              <input matInput type="number" placeholder="codigo" [(ngModel)]="cepModel.cepId" />
+              <input matInput type="number" placeholder="Código" [(ngModel)]="cepModel.cepId" />
             </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col s12 m6 l6">
             <mat-form-field>
-              <input matInput type="number" placeholder="descricao" [(ngModel)]="cepModel.descricao" />
+              <input matInput type="text" placeholder="Descrição" [(ngModel)]="cepModel.descricao" />
             </mat-form-field>
           </div>
         </div>
         <div class="col s12 m6 l6">
           <mat-form-field>
-            <mat-label>Estado</mat-label>
-            <mat-select name="estado" [(ngModel)]="cepModel.cidade" (selectionChange)="atualizarCidadeListBox()">
+            <mat-label>Cidade</mat-label>
+            <mat-select name="cidade" [(ngModel)]="cepModel.cidade" (selectionChange)="atualizarCidadeListBox()">
               <mat-option *ngFor="let cidade of cidades" [value]="cidade.descricao">
                 {{cidade.descricao}}
               </mat-option>
@@ -238,9 +251,23 @@
         </div>
         <div class="row footer-btn">
           <div class="button-row col s12">
-            <button mat-raised-button (click)="voltar()">Voltar</button>
             <button mat-raised-button color="green" (click)="salvarCep()">Salvar</button>
             <!--<button *ngIf="edicao" mat-raised-button color="green" (click)="atualizar()">Atualizar</button>-->
+          </div>
+        </div>
+
+        <div class="row heading">
+          <div class="col s12">
+            <h2 class="title">Lista de Ceps</h2>
+            <div class="heading__tools">
+              <div class="search">
+                <mat-form-field>
+                  <mat-icon svgIcon="slidenav-search"></mat-icon>
+                  <input matInput id="pesquisarId" name="pesquisar" placeholder="Pesquisar"
+                    (keyup)="aplicarFiltroCep($event.target.value)">
+                </mat-form-field>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -253,28 +280,28 @@
                 <mat-cell *matCellDef="let element">
                   <button mat-icon-button>
                     <mat-icon class="link_action" svgIcon="form-trash" matTooltip="Excluir"
-                      (click)="excluirCep(element.descricao)"></mat-icon>
+                      (click)="excluirCep(element.cepId)"></mat-icon>
                   </button>
                   <button mat-icon-button>
                     <mat-icon class="link_action" svgIcon="form-edit" matTooltip="Editar"
-                      (click)="editarCep(element.descricao)">
+                      (click)="editarCep(element.cepId)">
                     </mat-icon>
                   </button>
                 </mat-cell>
               </ng-container>
               <ng-container matColumnDef="cepId">
                 <!--CÓDIGO-->
-                <mat-header-cell *matHeaderCellDef mat-sort-header> codigo </mat-header-cell>>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>>
                 <mat-cell *matCellDef="let element"> {{element.cepId}} </mat-cell>
               </ng-container>
               <ng-container matColumnDef="descricao">
                 <!--CÓDIGO-->
-                <mat-header-cell *matHeaderCellDef mat-sort-header> descricao </mat-header-cell>>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>>
                 <mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
               </ng-container>
               <ng-container matColumnDef="cidade">
                 <!--DESCRICAO-->
-                <mat-header-cell *matHeaderCellDef mat-sort-header> cidade </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Cidade </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.cidade}} </mat-cell>
               </ng-container>
 

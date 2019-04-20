@@ -230,7 +230,7 @@ export class FreteComponent implements OnInit {
     this.dataSourceCidade.filterPredicate = (data: Cidade, filter: string) =>
       data.cidadeId.toString().indexOf(filter) != -1 ||
       data.descricao.toLowerCase().indexOf(filter) != -1 ||
-      data.cepList.toString().indexOf(filter) != -1;
+      data.estado.toString().toLowerCase().indexOf(filter) != -1;
     this.dataSourceCidade.filter = valor;
   }
 
@@ -241,10 +241,10 @@ export class FreteComponent implements OnInit {
     console.log("Chamou atualizarEstadoListBox codigo -------> " + this.cidadeSelId);
     let id = this.cidadeSelId;
     let cidadeSelLocal;
-    this.estados.forEach(item => {
-      if (item.estadoId == id) {
+    this.cidades.forEach(item => {
+      if (item.cidadeId == id) {
         cidadeSelLocal = item;
-        alert("Propriedade da pessoa selecionada " + item.cidadeList)
+        alert("Propriedade da pessoa selecionada " + item.cidadeId)
       }
     });
     this.cidadeSel = cidadeSelLocal;
@@ -270,9 +270,7 @@ export class FreteComponent implements OnInit {
     console.log("Lista de Cep");          
     console.log(this.ceps);
     this.cepModel = new Cep();
-    this.dataSourceCep = new MatTableDataSource<Cep>(this.ceps);
-    this.dataSourceCep.paginator = this.paginatorCustom;
-    this.dataSourceCep.sort = this.sort;
+    this.atualizaTableCep();
 } 
 
 
@@ -285,7 +283,7 @@ editarCep(cepId: number) {
   this.ceps.forEach(item => {
     if (item.cepId == cepId) {
       cepUpdate = item;
-      this.ceps.splice(cepId, 1);
+      this.ceps.splice(this.ceps.findIndex(d => d.cepId === cepId), 1);
     }
   });
   this.cepModel = cepUpdate;
@@ -304,9 +302,16 @@ atualizaTableCep() {
 }
 
 
-  voltar() {
-
-  }
+aplicarFiltroCep(valor: String) {
+  valor = valor.trim(); // Remove whitespace
+  valor = valor.toLowerCase();
+  console.log("realiza o filtro com " + valor);
+  this.dataSourceCep.filterPredicate = (data: Cep, filter: string) =>
+    data.cepId.toString().indexOf(filter) != -1 ||
+    data.descricao.toLowerCase().indexOf(filter) != -1 ||
+    data.cidade.toString().toLowerCase().indexOf(filter) != -1;
+  this.dataSourceCep.filter = valor;
+}
 
 
 
