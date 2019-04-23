@@ -198,22 +198,6 @@ export class FreteComponent implements OnInit {
 
   }
 
-<<<<<<< HEAD
-=======
-    salvarCidade(){
-      if(this.estadoSel.cidadeList == undefined)
-        this.estadoSel.cidadeList = new Array<Cidade>();
-      //this.cidadeModel.estado = this.estadoSel;
-      this.estadoSel.cidadeList.push(this.cidadeModel);
-      //this.cidades.push(this.cidadeModel);
-      console.log("Cidade salva");
-      console.log(this.estadoSel);
-      console.log("Cidade>>>>>>>");
-      this.cidadeModel = new Cidade();
-      this.dataSource = new MatTableDataSource<Cidade>(this.estadoSel.cidadeList);
-      this.dataSource.paginator = this.paginatorCustom;
-    }
->>>>>>> Commit neutro
 
   editarCidade(cidadeId: number) {
     console.log("CHAMOU EDITAR" + cidadeId);
