@@ -75,6 +75,7 @@ export class FreteComponent implements OnInit {
     estado.estadoId = 1;
     estado.descricao = "Paraná";
     estado.uf = "PR";
+    estado.valorFrete = 100.00;
     cidade = new Cidade();
     cidade.cidadeId = 1;
     cidade.descricao = "Cascavel";
@@ -93,6 +94,7 @@ export class FreteComponent implements OnInit {
     estado.estadoId = 2;
     estado.descricao = "Rio Grande do Sul";
     estado.uf = "RS";
+    estado.valorFrete = 100.00;
     cidade = new Cidade();
     cidade.cidadeId = 2;
     cidade.descricao = "Porto Alegre";
@@ -195,8 +197,6 @@ export class FreteComponent implements OnInit {
     this.dataSourceCidade.sort = this.sort;
 
   }
-
-
 
 
   editarCidade(cidadeId: number) {

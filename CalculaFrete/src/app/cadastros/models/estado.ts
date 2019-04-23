@@ -6,4 +6,5 @@ export class Estado {
     public uf: string;
     public descricao: string;
     public cidadeList: Array<Cidade>;
+    public valorFrete: number;
 }
