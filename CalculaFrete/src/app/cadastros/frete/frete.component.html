@@ -330,7 +330,7 @@
   <div class="col s12 m12 l3">
     <mat-form-field>
       <mat-label>Origem</mat-label>
-      <mat-select name="freteOrigem" [(ngModel)]="estado.descricao" (selectionChange)="atualizarEstadoListBox()">
+      <mat-select name="freteOrigem" [(ngModel)]="estadoOrigem.descricao" (selectionChange)="atualizarEstadoListBox()">
         <mat-option *ngFor="let estado of estados" [value]="estado.descricao">
           {{estado.descricao + " - " + estado.uf}}
         </mat-option>
@@ -342,7 +342,7 @@
   <div class="col s12 m12 l3">
     <mat-form-field>
       <mat-label>Destino</mat-label>
-      <mat-select name="freteDestino" [(ngModel)]="estado.descricao" (selectionChange)="atualizarEstadoListBox()">
+      <mat-select name="freteDestino" [(ngModel)]="estadoDestino.descricao" (selectionChange)="atualizarEstadoListBox()">
         <mat-option *ngFor="let estado of estados" [value]="estado.descricao">
           {{estado.descricao + " - " + estado.uf}}
         </mat-option>

@@ -12,6 +12,8 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 export class FreteComponent implements OnInit {
 
   public estado: Estado;
+  public estadoOrigem: Estado;
+  public estadoDestino: Estado;
   public cidade: Cidade;
   public isExpandido: number;
   public estadoSelId: number;
@@ -43,6 +45,8 @@ export class FreteComponent implements OnInit {
     this.cidades = new Array<Cidade>();
     this.cidade = new Cidade;
     this.estado = new Estado;
+    this.estadoDestino = new Estado;
+    this.estadoOrigem = new Estado;
     this.estados = new Array<Estado>();
     this.ceps = new Array<Cep>();
     //this.isExpandido = 0;
