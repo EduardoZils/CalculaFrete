@@ -122,7 +122,7 @@
       </div>
 
       <div class="row">
-        <!--TABLE ESTADO-->
+        <!--TABLE CIDADE-->
         <div class="col s12 m12 l12">
           <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="mat-elevation-z8">
             <ng-container matColumnDef="codigo">
@@ -130,18 +130,19 @@
               <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>>
               <mat-cell *matCellDef="let element"> {{element.codigo}} </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="uf">
-              <!--UF-->
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Uf </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.uf}} </mat-cell>
-            </ng-container>
             <ng-container matColumnDef="descricao">
               <!--DESCRIÇÃO-->
               <mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.descricao}} </mat-cell>
             </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedCollumnsCidade"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedCollumnsCidade;"></mat-row>
+            <!--<ng-container matColumnDef="estado">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell> 
+              <mat-cell *matCellDef="let element"> {{element.estado.descricao}}
+              </mat-cell>
+            </ng-container>
+            -->
+            <mat-header-row *matHeaderRowDef="displayColumnsCidade"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayColumnsCidade;"></mat-row>
           </mat-table>
           <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButton></mat-paginator>
         </div>
