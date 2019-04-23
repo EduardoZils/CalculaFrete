@@ -3,6 +3,7 @@ import { Estado } from '../models/estado'
 import { Cidade } from '../models/cidade';
 import { Cep } from '../models/cep';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { valorFrete } from '../models/valorFrete';
 
 @Component({
   selector: 'app-frete',
@@ -23,6 +24,7 @@ export class FreteComponent implements OnInit {
   public cidadeModel: Cidade = new Cidade();
   public estadoModel: Estado = new Estado();
   public cepModel: Cep = new Cep();
+  public frete: valorFrete;
 
   public estados: Array<Estado>;
   public cidades: Array<Cidade>;
@@ -45,6 +47,7 @@ export class FreteComponent implements OnInit {
     this.cidades = new Array<Cidade>();
     this.cidade = new Cidade;
     this.estado = new Estado;
+    this.frete = new valorFrete;
     this.estadoDestino = new Estado;
     this.estadoOrigem = new Estado;
     this.estados = new Array<Estado>();
