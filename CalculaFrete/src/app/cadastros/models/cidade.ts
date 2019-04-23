@@ -3,9 +3,9 @@ import { Estado } from "./estado";
 
 
 export class Cidade {
-    public codigo: number;
+    public cidadeId: number;
     public descricao: string;
-    public cepList: Array<Cep>;
     public estado: Estado;
+    public cepList: Array<Cep>;
 }
 
