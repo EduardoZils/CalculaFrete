@@ -342,7 +342,8 @@
   <div class="col s12 m12 l3">
     <mat-form-field>
       <mat-label>Destino</mat-label>
-      <mat-select name="freteDestino" [(ngModel)]="estadoDestino.descricao" (selectionChange)="atualizarEstadoListBox()">
+      <mat-select name="freteDestino" [(ngModel)]="estadoDestino.descricao"
+        (selectionChange)="atualizarEstadoListBox()">
         <mat-option *ngFor="let estado of estados" [value]="estado.descricao">
           {{estado.descricao + " - " + estado.uf}}
         </mat-option>
@@ -352,7 +353,13 @@
 </div>
 
 <div class="row footer-btn">
-    <div class="button-row col s12 m12 l1">
-      <button mat-raised-button color="green" (click)="Salvar()">Calcular</button>
-    </div>
+  <div class="button-row col s12 m12 l1">
+    <button mat-raised-button color="green" (click)="Salvar()">Calcular</button>
   </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m12 l6">
+    <mat-label name="Resultado" [(ngModel)]="calculoFrete.valor"></mat-label>
+  </div>
+</div>

@@ -200,9 +200,6 @@ export class FreteComponent implements OnInit {
 
   }
 
-
-
-
   editarCidade(cidadeId: number) {
     console.log("CHAMOU EDITAR" + cidadeId);
     let cidadeUpdate;
