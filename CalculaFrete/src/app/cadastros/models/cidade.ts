@@ -7,6 +7,6 @@ export class Cidade {
     public descricao: string;
     public estado: Estado;
     public cepList: Array<Cep>;
-    public estado: Estado;
+    
 }
 
