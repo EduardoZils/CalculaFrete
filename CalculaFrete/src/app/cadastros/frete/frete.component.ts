@@ -330,6 +330,7 @@ calcularFrete(){
   this.valorDoFrete = estadoD.valorFrete + estadoO.valorFrete;
   console.log("Valor do frete: ")
   console.log(this.valorDoFrete);
+  alert("O calculo do frete informa: R$" + this.valorDoFrete)
 }
 
 
