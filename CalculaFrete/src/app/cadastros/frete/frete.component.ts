@@ -25,6 +25,7 @@ export class FreteComponent implements OnInit {
   public estadoModel: Estado = new Estado();
   public cepModel: Cep = new Cep();
   public frete: valorFrete;
+  public valorDoFrete: number;
 
   public estados: Array<Estado>;
   public cidades: Array<Cidade>;
@@ -319,7 +320,17 @@ aplicarFiltroCep(valor: String) {
   this.dataSourceCep.filter = valor;
 }
 
-
+calcularFrete(){
+  let estadoD = this.estadoDestino;
+  let estadoO = this.estadoOrigem;
+  console.log("Origem -->");
+  console.log(estadoO);
+  console.log("Destino -->");
+  console.log(estadoD);
+  this.valorDoFrete = estadoD.valorFrete + estadoO.valorFrete;
+  console.log("Valor do frete: ")
+  console.log(this.valorDoFrete);
+}
 
 
 }
